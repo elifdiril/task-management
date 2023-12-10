@@ -14,7 +14,7 @@ export class TasksService {
   ) {}
 
   async getAllTasks(): Promise<Task[]> {
-    return await this.taskModel.find().exec();
+    return await this.taskModel.find();
   }
 
   async getTasksWithFilters(filterDto: GetTasksFilterDto): Promise<Task[]> {
@@ -35,11 +35,11 @@ export class TasksService {
       };
     }
 
-    return await this.taskModel.find(query).exec();
+    return await this.taskModel.find(query);
   }
 
   async getTaskById(id: string): Promise<Task> {
-    const found = await this.taskModel.findById(id).exec();
+    const found = await this.taskModel.findById(id);
 
     if (!found) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
@@ -61,7 +61,7 @@ export class TasksService {
   }
 
   async deleteTask(id: string): Promise<void> {
-    const deleted = await this.taskModel.findByIdAndDelete(id).exec();
+    const deleted = await this.taskModel.findByIdAndDelete(id);
 
     if (!deleted) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
