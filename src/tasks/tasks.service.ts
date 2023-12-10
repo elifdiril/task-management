@@ -5,7 +5,6 @@ import { Task, TaskDocument } from './task.schema'; // Ensure you have the corre
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-task-filter.dto';
 import { TaskStatus } from './task.model';
-import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class TasksService {
@@ -52,7 +51,6 @@ export class TasksService {
     const { title, description } = createTaskDto;
 
     const task = new this.taskModel({
-      id: uuid(),
       title,
       description,
       status: TaskStatus.OPEN,
@@ -70,7 +68,7 @@ export class TasksService {
 
   async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
     const updatedTask = await this.taskModel
-      .findOneAndUpdate({ id: id }, { status }, { new: true })
+      .findOneAndUpdate({ _id: id }, { status }, { new: true })
       .exec();
 
     if (!updatedTask) {

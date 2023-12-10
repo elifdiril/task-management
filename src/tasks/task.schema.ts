@@ -3,14 +3,8 @@ import { TaskStatus } from './task.model';
 import { HydratedDocument } from 'mongoose';
 
 export type TaskDocument = HydratedDocument<Task>;
-@Schema({ discriminatorKey: 'id' })
+@Schema()
 export class Task {
-  @Prop({
-    type: String,
-    unique: true,
-  })
-  id: string;
-
   @Prop({
     type: String,
     required: true,
@@ -23,7 +17,7 @@ export class Task {
   })
   description: string;
 
-  @Prop()
+  @Prop({ default: TaskStatus.OPEN })
   status: TaskStatus;
 }
 
